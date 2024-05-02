@@ -45,14 +45,28 @@ function isValid(value, validationFunction, errorSpan) {
   return isValid;
 }
 
+(function() {
+  // https://dashboard.emailjs.com/admin/account
+  emailjs.init({
+    publicKey: "",
+  });
+})();
+
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
+  emailjs.sendForm('service_r2imi4e', 'template_x58rjci', this)
+  .then(() => {
+      console.log('SUCCESS!');
+  }, (error) => {
+      console.log('FAILED...', error);
+  });
   // Les inputs des champs
   const firstName = document.querySelector("#first").value.trim();
   const lastName = document.querySelector("#last").value.trim();
   const emailValue = document.querySelector("#email").value.trim();
   const birthdayValue = document.querySelector("#birthday").value.trim();
+  
   const quantityValue = parseInt(
     document.querySelector("#quantity").value.trim(),
     10
@@ -92,7 +106,7 @@ form.addEventListener("submit", function (event) {
 
   // Verifier l'anniversaire
   function validateBirthday(birthdayValue) {
-    birthdayValue = birthdayValue === "";
+    birthdayValue = birthdayValue === "" || birthdayValue > '2008-01-01';
     return !birthdayValue;
   }
 
@@ -107,20 +121,12 @@ form.addEventListener("submit", function (event) {
     return isCheckboxChecked;
   }
 
-  //Verifier pour les locations
-  // let valeurs = [];
-  // for (let i = 1; i <= 6; i++) {
-  //   valeurs.push(document.getElementById(`location${i}`).checked);
-  
-  //   console.log(document.getElementById(`location${i}`).value)
-  // }
   const checked = document.querySelector('input[name="location"]:checked');
 
   let checkedValue = null;
   if(checked){
     checkedValue = document.querySelector('input[name="location"]:checked').value;
   }
-
 
   function validateLocation(checked) {
     return checked !== null;
@@ -151,7 +157,7 @@ form.addEventListener("submit", function (event) {
     locationSmall
   );
   
-  console.log(`nom: ${firstName}, prenom: ${lastName}, email: ${emailValue}, date de naissance ${birthdayValue}, Nombre de tournois: ${quantityValue}, ville du tournoi : ${checkedValue}`)
+ 
   
   // Si tous les champs sont valides, soumettre le formulaire
   if (
@@ -163,9 +169,8 @@ form.addEventListener("submit", function (event) {
     isValidateChecked &&
     isValidateLocation
   ) {
+    console.log(`nom: ${firstName}, prenom: ${lastName}, email: ${emailValue}, date de naissance ${birthdayValue}, Nombre de tournois: ${quantityValue}, ville du tournoi : ${checkedValue}`)
   
-    // event.preventDefault();
-
     // //cacher la modale de formulaire
     modalBody.style.display = "none";
 

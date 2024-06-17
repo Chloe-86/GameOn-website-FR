@@ -68,6 +68,7 @@ img {
   display: none;
 }
 
+
 @media screen and (max-width: 768px) {
   .topnav a {
     display: none;
@@ -76,9 +77,6 @@ img {
     float: right;
     display: block;
   }
-}
-
-@media screen and (max-width: 768px) {
   .topnav.responsive {
     position: relative;
   }
@@ -591,10 +589,10 @@ footer {
   }
  /* modale d envoi */
  .content{
-  margin: unset;
-  padding: unset;
-  max-width: unset;
-  height: 100%;
+  /* margin: unset;
+  padding: unset; */
+  /* max-width: unset; */
+  /* height: 100%; */
  }
  
 /* header */
@@ -633,15 +631,26 @@ small {
 
 
 /* modale de finish */
-.modalFinish{
-  height: 100%;
+
+ .modalFinish{
   z-index: 10000;
 }
+
 .modalFinish p{
-  padding-top: 50%;
-  padding-bottom: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
 }
+
 body > main > div.bground > div > div.modalFinish > input{
-  margin-bottom: 21px;
- }
+  position: absolute;
+  bottom: 21px;
+  left: 50%;
+  transform: translate(-50%);
+ } 
+ 
+.content.active{
+  height: calc(100vh - 100px);
+}

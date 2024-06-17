@@ -6,6 +6,7 @@ function editNav() {
     x.className = "topnav";
   }
 }
+
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalFinish = document.querySelector(".modalFinish");
@@ -15,10 +16,16 @@ const modalClose = document.querySelector(".close");
 const form = document.querySelector("form");
 const btnClose = document.querySelector(".btn-close");
 const modalBtnClose = document.querySelectorAll(".close, .btn-close");
-const modalBody = document.querySelector('.modal-body');
+const modalBody = document.querySelector(".modal-body");
+const modalContent = document.querySelector('.content')
+const checkboxConditions = document.querySelector(
+  "#checkboxConditions small"
+);
 
+let checkbox1 = document.querySelector("#checkbox1");
+let checkbox2 = document.querySelector("#checkbox2");
 
-// launch modal event
+// ouvrir la modale
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 //close modal event
@@ -27,6 +34,7 @@ modalBtnClose.forEach((btn) => btn.addEventListener("click", closeModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+
 }
 
 // close modal form
@@ -45,33 +53,26 @@ function isValid(value, validationFunction, errorSpan) {
   return isValid;
 }
 
-(function() {
-  // https://dashboard.emailjs.com/admin/account
-  emailjs.init({
-    publicKey: "",
-  });
-})();
+// (function () {
+//   // https://dashboard.emailjs.com/admin/account
+//   emailjs.init({
+//     publicKey: "ZqvGsjFlc7K5CsUYk",
+//   });
+// })();
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  emailjs.sendForm('service_r2imi4e', 'template_x58rjci', this)
-  .then(() => {
-      console.log('SUCCESS!');
-  }, (error) => {
-      console.log('FAILED...', error);
-  });
   // Les inputs des champs
   const firstName = document.querySelector("#first").value.trim();
   const lastName = document.querySelector("#last").value.trim();
   const emailValue = document.querySelector("#email").value.trim();
   const birthdayValue = document.querySelector("#birthday").value.trim();
-  
+  const locationChecked = document.querySelector('input[name="location"]:checked');
   const quantityValue = parseInt(
     document.querySelector("#quantity").value.trim(),
     10
   );
-  let isCheckboxChecked = document.querySelector("#checkbox1");
 
   // Les spans des erreurs des champs
   const spanFirst = document.querySelector("#nickName span");
@@ -84,9 +85,6 @@ form.addEventListener("submit", function (event) {
   );
   const locationSmall = document.querySelector("#locations small");
 
-
-
-  
   // Fonctions de validation pour chaque champ
 
   // Verifier le prenom
@@ -106,7 +104,7 @@ form.addEventListener("submit", function (event) {
 
   // Verifier l'anniversaire
   function validateBirthday(birthdayValue) {
-    birthdayValue = birthdayValue === "" || birthdayValue > '2008-01-01';
+    birthdayValue = birthdayValue === "" || birthdayValue > "2008-01-01";
     return !birthdayValue;
   }
 
@@ -116,16 +114,19 @@ form.addEventListener("submit", function (event) {
   }
 
   //valider la checkbox
-  function validateCheckbox(isCheckboxChecked) {
-    isCheckboxChecked = isCheckboxChecked.checked;
-    return isCheckboxChecked;
+  function validateCheckbox(checkbox1) {
+    return checkbox1.checked;
   }
-
-  const checked = document.querySelector('input[name="location"]:checked');
+    //valider la checkbox
+  function validateNewsLetter(checkbox2) {
+      return checkbox2.checked;
+    }
 
   let checkedValue = null;
-  if(checked){
-    checkedValue = document.querySelector('input[name="location"]:checked').value;
+  if (locationChecked) {
+    checkedValue = document.querySelector(
+      'input[name="location"]:checked'
+    ).value;
   }
 
   function validateLocation(checked) {
@@ -141,24 +142,27 @@ form.addEventListener("submit", function (event) {
     validateQuantity,
     quantitySpan
   );
+  
   const isValidateBirthday = isValid(
     birthdayValue,
     validateBirthday,
     birthDaySpan
   );
+
+  const isValidateLocation = isValid(locationChecked, validateLocation, locationSmall);
+
   const isValidateChecked = isValid(
-    isCheckboxChecked,
+    checkbox1,
     validateCheckbox,
     checkboxConditions
-   );
-  const isValidateLocation = isValid(
-    checked,
-    validateLocation,
-    locationSmall
   );
-  
- 
-  
+
+  const isValidateCheckedNewsletter = isValid(
+    checkbox2,
+    validateNewsLetter,
+    checkboxConditions
+  );
+
   // Si tous les champs sont valides, soumettre le formulaire
   if (
     isFirstNameValid &&
@@ -166,21 +170,38 @@ form.addEventListener("submit", function (event) {
     isEmailValid &&
     isValidateQuantity &&
     isValidateBirthday &&
-    isValidateChecked &&
-    isValidateLocation
+    isValidateLocation &&
+    isValidateChecked 
   ) {
-    console.log(`nom: ${firstName}, prenom: ${lastName}, email: ${emailValue}, date de naissance ${birthdayValue}, Nombre de tournois: ${quantityValue}, ville du tournoi : ${checkedValue}`)
-  
+    console.log(
+      `nom: ${firstName}, prenom: ${lastName}, email: ${emailValue}, date de naissance ${birthdayValue}, Nombre de tournois: ${quantityValue}, ville du tournoi : ${checkedValue}, veux la newsletter: ${isValidateCheckedNewsletter}`
+    );
+
+    // emailjs.sendForm("service_b3jgc3s", "template_x58rjci", this).then(
+    //   () => {
+    //     console.log("SUCCESS!");
+    //   },
+    //   (error) => {
+    //     console.log("FAILED...", error);
+    //   }
+    // );
+
     // //cacher la modale de formulaire
     modalBody.style.display = "none";
-
+   
     // //afficher la modale de remerciement
+    modalContent.classList.add('active');
     modalFinish.style.display = "block";
     form.reset();
   }
 
-  document.querySelector('body > main > div.bground > div > div.modalFinish > input').addEventListener('click', ()=>{
-    modalFinish.style.display = "none";
-    modalBody.style.display = "block";
-  })
+  document
+    .querySelector("body > main > div.bground > div > div.modalFinish > input")
+    .addEventListener("click", () => {
+      modalFinish.style.display = "none";
+      modalBody.style.display = "block";
+      modalContent.classList.remove('active');
+    });
 });
+
+

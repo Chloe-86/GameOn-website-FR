@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Reservation</title>
+  <title>Game on</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="./assets/css/style.css"/>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script src="./assets/js/modal.js" defer></script>
-  
+
 </head>
 
 <body>
@@ -71,16 +71,16 @@
             </div>
             <div class="formData" id="checkEmail">
               <label for="email">E-mail</label><br>
-              <input class="text-control" type="email" id="email" name="email" /><br>
+              <input class="text-control"  id="email" name="email" /><br>
               <span>Veuillez entrer une adresse email correcte</span>
             </div>
             <div class="formData" id="checkBirthday">
-              <label>Date de naissance</label><br>
+              <label for="'birthday">Date de naissance</label><br>
               <input class="text-control" type="date" id="birthday" name="birthdate" /><br>
               <span>"Vous devez entrer votre date de naissance."</span>
             </div>
             <div class="formData" id="checkQuantity">
-              <label id="game1">À combien de tournois GameOn avez-vous déjà participé ?</label>
+              <label for="quantity" id="game1">À combien de tournois GameOn avez-vous déjà participé ?</label>
               <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
               <span>"Une valeur numérique doit etre saisie"</span>
             </div>
@@ -110,7 +110,7 @@
               <label class="checkbox-label" for="location6">
                 <span class="checkbox-icon"></span>
                 Portland</label>
-              <small>Une réponse doit etre sélectionnée.</small>
+              <small>Vous devez choisir une option.</small>
             </div>
 
             <div class="formData" id="checkboxConditions">
@@ -121,7 +121,7 @@
               </label>
               <small>Vous devez vérifier que vous acceptez les termes et conditions.</small>
               <br>
-              <input class="checkbox-input" type="checkbox" id="checkbox2" />
+              <input class="checkbox-input" type="checkbox" id="checkbox2" name="newsletter" />
               <label class="checkbox2-label" for="checkbox2">
                 <span class="checkbox-icon"></span>
                 Je souhaite être prévenu des prochains évènements.
@@ -133,7 +133,7 @@
           
         </div>
         <div class="modalFinish">
-          <p>Merci pour votre inscription</p>
+          <p>Merci ! Votre réservation a été reçue.</p>
           <input class="btn-submit btn-close" type="button" class="button" value="Fermer" />
         </div>
       </div>

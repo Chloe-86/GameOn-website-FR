@@ -530,7 +530,7 @@ footer {
 
 /* mes changements préconisés pour le responsive à reporter sur l'ancien code */
 
-/* desktop, tablet */
+
 .copyrights{
  margin: 60px -40px 30px!important;
 }
@@ -538,7 +538,52 @@ footer {
   object-fit: cover !important;
 }
 
-/* mobile */
+
+
+/* modale de envoi */
+.formData span,
+small {
+  color: #ff4e60;
+  font-family: "Roboto";
+  display: none;
+  font-size: 0.625rem;
+  font-weight: 400;
+}
+/* test */
+.modalFinish {
+  display: none;
+}
+.bground {
+  background-color: white;
+}
+
+
+/* modale de finish */
+
+ .modalFinish{
+  z-index: 10000;
+}
+
+.modalFinish p{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+body > main > div.bground > div > div.modalFinish > input{
+  position: absolute;
+  bottom: 21px;
+  left: 50%;
+  transform: translate(-50%);
+ } 
+ 
+.content.active{
+  height: calc(100vh - 100px);
+}
+
+/* tablet mobile*/
 @media screen and (max-width: 768px) {
   #myTopnav > div.main-navbar > a.active > span {
     padding-right: 35px !important;
@@ -587,14 +632,7 @@ footer {
   .hero-section{
     min-height: unset;
   }
- /* modale d envoi */
- .content{
-  /* margin: unset;
-  padding: unset; */
-  /* max-width: unset; */
-  /* height: 100%; */
- }
- 
+
 /* header */
 .hero-content{
   min-width: unset;
@@ -610,47 +648,4 @@ footer {
   font-size: 0.8125rem;
   font-weight: 400;
 }
-}
-
-/* modale de envoi */
-.formData span,
-small {
-  color: #ff4e60;
-  font-family: "Roboto";
-  display: none;
-  font-size: 0.625rem;
-  font-weight: 400;
-}
-/* test */
-.modalFinish {
-  display: none;
-}
-.bground {
-  background-color: white;
-}
-
-
-/* modale de finish */
-
- .modalFinish{
-  z-index: 10000;
-}
-
-.modalFinish p{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-body > main > div.bground > div > div.modalFinish > input{
-  position: absolute;
-  bottom: 21px;
-  left: 50%;
-  transform: translate(-50%);
- } 
- 
-.content.active{
-  height: calc(100vh - 100px);
 }

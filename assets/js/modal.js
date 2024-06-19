@@ -68,7 +68,7 @@ function isValid(value, validationFunction, errorSpan) {
 // (function () {
 //   // https://dashboard.emailjs.com/admin/account
 //   emailjs.init({
-//     publicKey: "6TmHFoZ80gYvsIEhJ",
+//     publicKey: "Iuls7pytJ_w8KylVe",
 //   });
 // })();
 
